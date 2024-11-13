@@ -41,7 +41,7 @@ Commandes pendant le jeu :
 Structure du code
 Le projet est organisé en plusieurs fichiers Python :
 
-- main.py : Fichier principal qui lance le jeu, gère le menu principal et les interactions avec l'utilisateur.
+-- main.py : Fichier principal qui lance le jeu, gère le menu principal et les interactions avec l'utilisateur.
 - game.py : Contient la logique principale du jeu, la gestion des menus et des sauvegardes.
 - player.py : Définit la classe Player, qui gère les caractéristiques du joueur (HP, XP, inventaire).
 - map.py : Définit la classe Map, qui gère la carte du monde et les déplacements du joueur.
