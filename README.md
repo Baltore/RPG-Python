@@ -26,10 +26,10 @@ python main.py
 
 Menu principal :
 
-1 : Créer un nouveau jeu.
-2 : Charger un jeu sauvegardé.
-3 : Voir les informations sur le jeu.
-4 : Quitter le jeu.
+- 1 : Créer un nouveau jeu.
+- 2 : Charger un jeu sauvegardé.
+- 3 : Voir les informations sur le jeu.
+- 4 : Quitter le jeu.
 
 Commandes pendant le jeu :
 
