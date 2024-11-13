@@ -51,4 +51,5 @@ Le projet est organisé en plusieurs fichiers Python :
 - item.py : Définit la classe Item pour gérer les objets collectés par le joueur.
 
 
-  Auteurs                        Qays/Matthis : Créateur et développeur principal.
+  Auteurs
+  Qays/Matthis : Créateur et développeur principal.
