@@ -33,21 +33,21 @@ Menu principal :
 
 Commandes pendant le jeu :
 
-go north / south / east / west : Déplacez-vous dans le monde.
-status : Affichez l'état actuel de votre personnage (HP, XP, inventaire).
-use [item] : Utilisez un objet de votre inventaire (par exemple, "use Health Potion").
-exit : Quittez le jeu.
+- go north / south / east / west : Déplacez-vous dans le monde.
+- status : Affichez l'état actuel de votre personnage (HP, XP, inventaire).
+- use [item] : Utilisez un objet de votre inventaire (par exemple, "use Health Potion").
+- exit : Quittez le jeu.
 
 Structure du code
 Le projet est organisé en plusieurs fichiers Python :
 
-main.py : Fichier principal qui lance le jeu, gère le menu principal et les interactions avec l'utilisateur.
-game.py : Contient la logique principale du jeu, la gestion des menus et des sauvegardes.
-player.py : Définit la classe Player, qui gère les caractéristiques du joueur (HP, XP, inventaire).
-map.py : Définit la classe Map, qui gère la carte du monde et les déplacements du joueur.
-combat.py : Contient la logique de combat, y compris les interactions avec les monstres.
-monster.py : Définit la classe Monster et la classe Boss pour gérer les ennemis.
-item.py : Définit la classe Item pour gérer les objets collectés par le joueur.
+- main.py : Fichier principal qui lance le jeu, gère le menu principal et les interactions avec l'utilisateur.
+- game.py : Contient la logique principale du jeu, la gestion des menus et des sauvegardes.
+- player.py : Définit la classe Player, qui gère les caractéristiques du joueur (HP, XP, inventaire).
+- map.py : Définit la classe Map, qui gère la carte du monde et les déplacements du joueur.
+- combat.py : Contient la logique de combat, y compris les interactions avec les monstres.
+- monster.py : Définit la classe Monster et la classe Boss pour gérer les ennemis.
+- item.py : Définit la classe Item pour gérer les objets collectés par le joueur.
 
 Auteurs
 Qays/Matthis : Créateur et développeur principal.
