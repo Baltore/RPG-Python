@@ -2,7 +2,7 @@ class Map:
     def __init__(self):
         # Représente la carte comme une grille de descriptions de lieux
         self.grid = [
-            ["Starting Point", "Forest Path", "Clearing", "River Bank"],
+            ["Small Village", "Forest Path", "Clearing", "River Bank"],
             ["Dense Forest", "Old Cabin", "Open Field", "Mountain Base"],
             ["Dark Cave", "Swamp", "Ruined Tower", "Boss Lair"]
         ]
@@ -34,5 +34,9 @@ class Map:
         else:
             print("You can't move in that direction. You may be at the edge of the map.")
             return False
+        
+        if self.player_position == (2, 3):  
+            print("You have reached the Boss Lair!")
+            return "boss"
 
         return True
