@@ -16,7 +16,7 @@ Ce projet est un jeu RPG rétro développé en Python, utilisant la programmatio
 1. Clonez ce dépôt sur votre machine locale :
 
    ```bash
-   git clone https://github.com/votre-utilisateur/rpg-retro-game.git
+   git clone https://github.com/Baltore/rpg-retro-game.git
    
 2. Lancez le jeu avec la commande suivante :
 
