@@ -47,22 +47,34 @@ class Game:
         self.print_with_delay(f"{Style.BRIGHT}{Fore.GREEN}..." + Style.RESET_ALL)
         self.game_loop()
 
-    def save_game(self):
-        with open('savegame.pkl', 'wb') as f:
-            pickle.dump(self.player, f)
-        print(Fore.GREEN + "Game has been saved successfully!")
-        self.print_with_delay("...")
-
-    def load_game(self):
+    # Méthode pour sauvegarder l'état du jeu dans la classe Game
+    def save_game(self, filename="savegame.pkl"):
         try:
-            with open('savegame.pkl', 'rb') as f:
-                self.player = pickle.load(f)
-            print(Fore.GREEN + "Game loaded successfully! Welcome back, " + self.player.name)
+            with open(filename, 'wb') as file:
+                pickle.dump(self.player, file)
+            print(Fore.GREEN + "Game saved successfully!")
             self.print_with_delay("...")
-            self.game_loop()
+        except Exception as e:
+            print(Fore.RED + f"An error occurred while saving the game: {e}")
+            self.print_with_delay("...")
+
+        # Méthode pour charger l'état du jeu
+    def load_game(self, filename="savegame.pkl"):
+        try:
+            with open(filename, 'rb') as file:
+                self.player = pickle.load(file)
+            print("Game loaded successfully!")
+            self.print_with_delay("...")
+            return True  # Indiquer que le chargement a réussi
         except FileNotFoundError:
-            print(Fore.RED + "No saved game found. Please start a new game.")
+            print("No save file found.")
             self.print_with_delay("...")
+            return False  # Indiquer que le chargement a échoué
+        except Exception as e:
+            print(Fore.RED + f"An error occurred while loading the game: {e}")
+            self.print_with_delay("...")
+            return False
+
 
     def show_about(self):
         self.clear_console()
@@ -98,7 +110,7 @@ class Game:
                 self.map.describe_current_location()
 
                 # Demander à l'utilisateur la direction
-                command = input(Fore.CYAN + "Enter a command (go north, go south, go east, go west, status, use [item], exit): ").lower()
+                command = input(Fore.CYAN + "Enter a command (go north, go south, go east, go west, status, use [item], save, exit): ").lower()
 
                 # Vérifier si la commande commence par "go" pour récupérer la direction
                 if command.startswith("go "):
@@ -118,6 +130,9 @@ class Game:
                     item_name = command.split(" ", 1)[1]
                     self.player.use_item(item_name)
                     self.print_with_delay("...")
+                elif command == "save":
+                    self.save_game()
+                    self.print_with_delay("Game has been saved successfully!")
                 elif command == "exit":
                     print(Fore.RED + "Exiting the game...")
                     self.print_with_delay("...")
@@ -223,7 +238,12 @@ class Game:
                     self.start_new_game()
                 elif choice == "2":
                     self.clear_console()
-                    self.load_game()
+                    if self.load_game():
+                        print(Fore.GREEN + "Welcome back, " + self.player.name + "!")
+                        self.game_loop()  # Lancer la boucle de jeu après le chargement réussi
+                    else:
+                        print(Fore.RED + "Failed to load the game. Returning to the main menu.")
+                        self.print_with_delay("...")
                 elif choice == "3":
                     self.clear_console()
                     self.show_about()
