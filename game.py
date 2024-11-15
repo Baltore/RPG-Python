@@ -176,30 +176,52 @@ class Game:
                         self.display_menu()  # Retourne au menu principal
                         return  # Quitte la boucle du game_loop et retourne au menu
 
-                # Génération d'un monstre aléatoire mais sans inclure le boss
-                if self.map.player_position != (2, 3) and random.randint(1, 100) <= 30:  # Pas de boss dans la zone aléatoire
-                    monster = Monster("Goblin", 30, 10)
-                    print(Fore.MAGENTA + f"A wild {monster.name} appears!")
+                # Vérifier si le joueur n'est pas au "Small Village"
+                if self.map.player_position != (0, 0):
+                    # Génération d'un monstre aléatoire mais sans inclure le boss
+                    if self.map.player_position != (2, 3) and random.randint(1, 100) <= 30:  # Pas de boss dans la zone aléatoire
+                        # Définition des monstres possibles avec leur taux de spawn et XP
+                        monsters = [
+                            Monster("Goblin", 30, 10, 20),  # Goblin, 30% de chance, 20 XP
+                            Monster("Slime", 15, 3, 7),     # Slime, 50% de chance, 7 XP
+                            Monster("Skeleton", 25, 15, 20) # Squelette, 30% de chance, 20 XP
+                        ]
+
+                        # Liste des monstres pondérée par leur taux de spawn
+                        weighted_monsters = [
+                            monster for monster in monsters for _ in range(30 if monster.name == "Goblin" else 50 if monster.name == "Slime" else 30)
+                        ]
+
+                        # Choix aléatoire d'un monstre parmi la liste pondérée
+                        chosen_monster = random.choice(weighted_monsters)
+
+                        print(Fore.MAGENTA + f"A wild {chosen_monster.name} appears!")
+                        self.print_with_delay("...")
+                        combat = Combat(self.player, chosen_monster)
+                        combat.start_fight()
+
+                        if self.player.hp <= 0:  # Si le joueur est mort, on arrête
+                            break
+
+
+
+                    # Générer un item aléatoire à certains moments
+                    if random.randint(1, 100) <= 20:  # 20% de chance d'apparition d'un objet
+                        item = self.generate_random_item()
+                        print(Fore.YELLOW + f"You found a {item.name}!")
+                        command = input(Fore.GREEN + f"Do you want to pick up the {item.name}? (yes/no): ").lower()
+
+                        if command == "yes":
+                            self.player.add_item(item)  # Ajoute l'objet à l'inventaire
+                            print(Fore.GREEN + f"You picked up the {item.name}.")
+                            self.print_with_delay("...")
+                        else:
+                            print(Fore.RED + "You left the item behind.")
+                            self.print_with_delay("...")
+                else:
+                    print(Fore.GREEN + "You are safe in the Small Village. No monsters or items here.")
                     self.print_with_delay("...")
-                    combat = Combat(self.player, monster)
-                    combat.start_fight()
 
-                    if self.player.hp <= 0:
-                        break
-
-                # Générer un item aléatoire à certains moments
-                if random.randint(1, 100) <= 20:  # 20% de chance d'apparition d'un objet
-                    item = self.generate_random_item()
-                    print(Fore.YELLOW + f"You found a {item.name}!")
-                    command = input(Fore.GREEN + f"Do you want to pick up the {item.name}? (yes/no): ").lower()
-
-                    if command == "yes":
-                        self.player.add_item(item)  # Ajoute l'objet à l'inventaire
-                        print(Fore.GREEN + f"You picked up the {item.name}.")
-                        self.print_with_delay("...")
-                    else:
-                        print(Fore.RED + "You left the item behind.")
-                        self.print_with_delay("...")
 
             # Si le joueur est défait, afficher "Game Over" et revenir au menu
             print(Fore.RED + "Game over. Returning to the main menu.")

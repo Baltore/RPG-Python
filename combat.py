@@ -50,16 +50,17 @@ class Combat:
         if self.monster.hp <= 0:
             if isinstance(self.monster, Boss):
                 print(Fore.YELLOW + "Congratulations! You have defeated the Dark Overlord and escaped the forest!" + Style.RESET_ALL)
-                self.player.gain_xp(100)
+                self.player.gain_xp(100)  # XP spécifique pour le boss
                 return False
             else:
-                xp_gain = 20
+                xp_gain = self.monster.xp_reward  # Utiliser l'XP de la récompense du monstre
                 print(Fore.RED + f"{self.monster.name} has been defeated!" + Style.RESET_ALL)
                 self.player.gain_xp(xp_gain)
                 print(Fore.YELLOW + f"You gained {xp_gain} XP!" + Style.RESET_ALL)
                 time.sleep(6)
                 os.system('clear')
         return False
+
 
     def get_combat_action(self):
         """Gère la saisie de l'utilisateur et vérifie si l'action est valide."""
